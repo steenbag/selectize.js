@@ -1,5 +1,5 @@
 /**
- * selectize.bootstrap3.css (v@@version) - Bootstrap 3 Theme
+ * selectize.bootstrap3.css (v0.12.1) - Bootstrap 3 Theme
  * Copyright (c) 2013–2015 Brian Reavis & contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
@@ -76,7 +76,8 @@
 }
 
 .selectize-dropdown {
-	.optgroup-header {
+  font-size: 80%;
+  .optgroup-header {
 		font-size: @font-size-small;
 		line-height: @line-height-base;
 	}
@@ -94,6 +95,13 @@
 
 .selectize-dropdown-content {
 	padding: 5px 0;
+  .active {
+    background-color: @component-active-bg;
+    color: @component-active-color;
+  }
+  div {
+    line-height: 12px;
+  }
 }
 
 .selectize-dropdown-header {
@@ -138,6 +146,12 @@
 			.selectize-border-radius(@selectize-border-radius - 1px);
 		}
 	}
+  &.single {
+    .selectize-input {
+      background: @selectize-color-input;
+      border-color: @input-border;
+    }
+  }
 }
 
 .form-control.selectize-control {
@@ -147,4 +161,26 @@
 	background: none;
 	.selectize-box-shadow(none);
 	.selectize-border-radius(0);
+}
+
+.input-group-lg > .form-control.selectize-control > .selectize-input { .input-lg(); }
+.input-group-lg > .form-control.selectize-control {
+  height: 34px;
+}
+.input-group-sm > .form-control.selectize-control > .selectize-input { .input-sm(); }
+.input-group-sm > .form-control.selectize-control {
+  height: 30px;
+}
+
+.input-group {
+  .selectize-input {
+    min-height: 0;
+  }
+}
+
+.input-group-sm > .form-control.selectize-control:nth-of-type(1) > .selectize-input {
+  .border-right-radius(0);
+}
+.input-group-sm > .form-control.selectize-control:last-child > .selectize-input {
+  .border-left-radius(0);
 }
