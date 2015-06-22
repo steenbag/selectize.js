@@ -169,7 +169,7 @@ $.extend(Selectize.prototype, {
 		self.$dropdown_content = $dropdown_content;
 
 		$dropdown.on('mouseenter', '[data-selectable]', function() { return self.onOptionHover.apply(self, arguments); });
-		$dropdown.on('mousedown click', '[data-selectable]', function() { return self.onOptionSelect.apply(self, arguments); });
+		$dropdown.on('mousedown click', '[data-selectable],[data-unselectable]', function() { return self.onOptionSelect.apply(self, arguments); });
 		watchChildEvent($control, 'mousedown', '*:not(input)', function() { return self.onItemSelect.apply(self, arguments); });
 		autoGrow($control_input);
 
@@ -2026,6 +2026,7 @@ $.extend(Selectize.prototype, {
 		var html = '';
 		var cache = false;
 		var self = this;
+		var is_selectable = true;
 		var regex_tag = /^[\t \r\n]*<([a-z][a-z0-9\-_]*(?:\:[a-z][a-z0-9\-_]*)?)/i;
 
 		if (templateName === 'option' || templateName === 'item') {
@@ -2047,14 +2048,17 @@ $.extend(Selectize.prototype, {
 		html = self.settings.render[templateName].apply(this, [data, escape_html]);
 
 		// add mandatory attributes
-		if (templateName === 'option' || templateName === 'option_create') {
+		if (data.selectable !== undefined && data.selectable === false) {
+        		html = html.replace(regex_tag, '<$1 data-unselectable');
+        		is_selectable = false;
+      		} else if (templateName === 'option' || templateName === 'option_create') {
 			html = html.replace(regex_tag, '<$1 data-selectable');
 		}
 		if (templateName === 'optgroup') {
 			id = data[self.settings.optgroupValueField] || '';
 			html = html.replace(regex_tag, '<$1 data-group="' + escape_replace(escape_html(id)) + '"');
 		}
-		if (templateName === 'option' || templateName === 'item') {
+		if (is_selectable && templateName === 'option' || templateName === 'item') {
 			html = html.replace(regex_tag, '<$1 data-value="' + escape_replace(escape_html(value || '')) + '"');
 		}
 
