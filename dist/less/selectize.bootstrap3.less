@@ -76,7 +76,8 @@
 }
 
 .selectize-dropdown {
-	.optgroup-header {
+  font-size: 80%;
+  .optgroup-header {
 		font-size: @font-size-small;
 		line-height: @line-height-base;
 	}
@@ -94,6 +95,13 @@
 
 .selectize-dropdown-content {
 	padding: 5px 0;
+  .active {
+    background-color: @component-active-bg;
+    color: @component-active-color;
+  }
+  div {
+    line-height: 12px;
+  }
 }
 
 .selectize-dropdown-header {
@@ -109,13 +117,18 @@
 	&.dropdown-active::before {
 		display: none;
 	}
-	&.focus {
-		@color: @input-border-focus;
-		@color-rgba: rgba(red(@color), green(@color), blue(@color), .6);
-		border-color: @color;
-		outline: 0;
-		.selectize-box-shadow(~"inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px @{color-rgba}");
-	}
+}
+
+.selectize-control.single, .selectize-control.multi {
+  .selectize-input {
+    &.dropdown-active.focus {
+      @color: @input-border-focus;
+      @color-rgba: rgba(red(@color), green(@color), blue(@color), .6);
+      border-color: @color;
+      outline: 0;
+      .selectize-box-shadow(~"inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px @{color-rgba}");
+    }
+  }
 }
 
 .has-error .selectize-input {
@@ -138,6 +151,12 @@
 			.selectize-border-radius(@selectize-border-radius - 1px);
 		}
 	}
+  &.single {
+    .selectize-input {
+      background: @selectize-color-input;
+      border-color: @input-border;
+    }
+  }
 }
 
 .form-control.selectize-control {
@@ -147,4 +166,26 @@
 	background: none;
 	.selectize-box-shadow(none);
 	.selectize-border-radius(0);
+}
+
+.input-group-lg > .form-control.selectize-control > .selectize-input { .input-lg(); }
+.input-group-lg > .form-control.selectize-control {
+  height: 34px;
+}
+.input-group-sm > .form-control.selectize-control > .selectize-input { .input-sm(); }
+.input-group-sm > .form-control.selectize-control {
+  height: 30px;
+}
+
+.input-group {
+  .selectize-input {
+    min-height: 0;
+  }
+}
+
+.input-group-sm > .form-control.selectize-control:nth-of-type(1) > .selectize-input {
+  .border-right-radius(0);
+}
+.input-group-sm > .form-control.selectize-control:last-child > .selectize-input {
+  .border-left-radius(0);
 }
