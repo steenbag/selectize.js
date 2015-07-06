@@ -251,6 +251,7 @@
   -moz-border-radius: 1px;
   border-radius: 1px;
 }
+.selectize-dropdown [data-unselectable],
 .selectize-dropdown [data-selectable],
 .selectize-dropdown .optgroup-header {
   padding: 5px 8px;
